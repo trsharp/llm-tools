@@ -1,2 +1,2 @@
-# mcp-tools
-A collection of self-hosted mcp tools
+# llm-tools
+A collection of LLM related tooling.
