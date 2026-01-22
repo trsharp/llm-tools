@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Tsk.Models;
+namespace Tasks.Models;
 
 public class TaskItem
 {

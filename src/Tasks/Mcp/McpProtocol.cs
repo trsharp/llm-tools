@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Tsk.Mcp;
+namespace Tasks.Mcp;
 
 // JSON-RPC 2.0 Messages
 public class JsonRpcRequest

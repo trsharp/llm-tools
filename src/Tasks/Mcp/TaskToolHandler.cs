@@ -1,7 +1,7 @@
 using System.Text.Json;
-using Tsk.Models;
+using Tasks.Models;
 
-namespace Tsk.Mcp;
+namespace Tasks.Mcp;
 
 public class TaskToolHandler
 {
@@ -703,7 +703,7 @@ public class TaskToolHandler
 
     private CallToolResult HandleTaskList(JsonElement? arguments)
     {
-        var status = arguments?.TryGetProperty("status", out var statusProp) == true ? ParseStatus(statusProp.GetString()) : (Models.TaskStatus?)null;
+        var status = arguments?.TryGetProperty("status", out var statusProp) == true ? ParseStatus(statusProp.GetString()) : null;
         var priority = arguments?.TryGetProperty("priority", out var priProp) == true ? ParsePriority(priProp.GetString()) : (TaskPriority?)null;
         var tag = arguments?.TryGetProperty("tag", out var tagProp) == true ? tagProp.GetString() : null;
         var projectId = arguments?.TryGetProperty("projectId", out var projProp) == true ? projProp.GetString() : null;
@@ -877,7 +877,7 @@ public class TaskToolHandler
         var id = arguments?.GetProperty("id").GetString() ?? throw new ArgumentException("ID is required");
         var title = arguments?.TryGetProperty("title", out var titleProp) == true ? titleProp.GetString() : null;
         var description = arguments?.TryGetProperty("description", out var descProp) == true ? descProp.GetString() : null;
-        var status = arguments?.TryGetProperty("status", out var statusProp) == true ? ParseStatus(statusProp.GetString()) : (Models.TaskStatus?)null;
+        var status = arguments?.TryGetProperty("status", out var statusProp) == true ? ParseStatus(statusProp.GetString()) : null;
         var priority = arguments?.TryGetProperty("priority", out var priProp) == true ? ParsePriority(priProp.GetString()) : (TaskPriority?)null;
         var tags = arguments?.TryGetProperty("tags", out var tagsProp) == true
             ? tagsProp.EnumerateArray().Select(t => t.GetString()!).ToList()
@@ -1405,7 +1405,7 @@ public class TaskToolHandler
             sb.AppendLine();
 
             var done = flat.Count(t => t.Status == Models.TaskStatus.Done);
-            var pct = flat.Count > 0 ? (done * 100 / flat.Count) : 0;
+            var pct = flat.Count > 0 ? done * 100 / flat.Count : 0;
             sb.AppendLine($"**Overall Progress:** {done}/{flat.Count} tasks ({pct}%)");
             sb.AppendLine();
 
@@ -1417,7 +1417,7 @@ public class TaskToolHandler
                 foreach (var proj in projects)
                 {
                     var projStats = _store.GetStats(proj.Id);
-                    var projPct = projStats.Total > 0 ? (projStats.Done * 100 / projStats.Total) : 0;
+                    var projPct = projStats.Total > 0 ? projStats.Done * 100 / projStats.Total : 0;
                     sb.AppendLine($"- **{proj.Name}** - {projStats.Done}/{projStats.Total} ({projPct}%)");
                 }
                 sb.AppendLine();
@@ -1476,7 +1476,7 @@ public class TaskToolHandler
 
         var allFlat = _store.Flatten(tree);
         var allDone = allFlat.Count(t => t.Status == Models.TaskStatus.Done);
-        var allPct = allFlat.Count > 0 ? (allDone * 100 / allFlat.Count) : 0;
+        var allPct = allFlat.Count > 0 ? allDone * 100 / allFlat.Count : 0;
         sb.AppendLine($"**Progress:** {allDone}/{allFlat.Count} tasks ({allPct}%)");
         sb.AppendLine();
 

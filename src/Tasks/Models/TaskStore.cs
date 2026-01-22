@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 
-namespace Tsk.Models;
+namespace Tasks.Models;
 
 /// <summary>
 /// Data stored in each project file

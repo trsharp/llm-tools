@@ -1,8 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Tsk;
-using Tsk.Mcp;
-using Tsk.Models;
+using Tasks;
+using Tasks.Mcp;
+using Tasks.Models;
+
 
 // Build configuration
 var exeDir = Path.GetDirectoryName(Environment.ProcessPath ?? AppContext.BaseDirectory)

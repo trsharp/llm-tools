@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Microsoft.Extensions.Options;
-using Tsk.Models;
+using Tasks.Models;
 
-namespace Tsk;
+namespace Tasks;
 
 public class CliHandler
 {
@@ -405,7 +405,7 @@ public class CliHandler
         {
             var task = sorted[i];
             var isLast = i == sorted.Count - 1;
-            var connector = isRoot ? "" : (isLast ? "└── " : "├── ");
+            var connector = isRoot ? "" : isLast ? "└── " : "├── ";
             var statusIcon = StatusIcon(task.Status);
             var priIcon = PriorityIcon(task.Priority);
 
@@ -413,7 +413,7 @@ public class CliHandler
 
             if (task.Children.Count > 0)
             {
-                var childPrefix = prefix + (isRoot ? "" : (isLast ? "    " : "│   "));
+                var childPrefix = prefix + (isRoot ? "" : isLast ? "    " : "│   ");
                 PrintTree(task.Children, childPrefix, false);
             }
         }
@@ -885,7 +885,7 @@ EXAMPLES:
             sb.AppendLine();
 
             var done = flat.Count(t => t.Status == Models.TaskStatus.Done);
-            var pct = flat.Count > 0 ? (done * 100 / flat.Count) : 0;
+            var pct = flat.Count > 0 ? done * 100 / flat.Count : 0;
             sb.AppendLine($"**Overall Progress:** {done}/{flat.Count} tasks ({pct}%)");
             sb.AppendLine();
 
@@ -897,7 +897,7 @@ EXAMPLES:
                 foreach (var proj in projects)
                 {
                     var projStats = _store.GetStats(proj.Id);
-                    var projPct = projStats.Total > 0 ? (projStats.Done * 100 / projStats.Total) : 0;
+                    var projPct = projStats.Total > 0 ? projStats.Done * 100 / projStats.Total : 0;
                     sb.AppendLine($"- **{proj.Name}** - {projStats.Done}/{projStats.Total} ({projPct}%)");
                 }
                 sb.AppendLine();
@@ -957,7 +957,7 @@ EXAMPLES:
 
         var allFlat = _store.Flatten(tree);
         var allDone = allFlat.Count(t => t.Status == Models.TaskStatus.Done);
-        var allPct = allFlat.Count > 0 ? (allDone * 100 / allFlat.Count) : 0;
+        var allPct = allFlat.Count > 0 ? allDone * 100 / allFlat.Count : 0;
         sb.AppendLine($"**Progress:** {allDone}/{allFlat.Count} tasks ({allPct}%)");
         sb.AppendLine();
 

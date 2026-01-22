@@ -1,7 +1,7 @@
 using System.Text.Json;
-using Tsk.Models;
+using Tasks.Models;
 
-namespace Tsk.Mcp;
+namespace Tasks.Mcp;
 
 public class McpServer
 {

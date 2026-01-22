@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Tsk.Models;
+namespace Tasks.Models;
 
 /// <summary>
 /// Configuration options for tsk, bound from appsettings.json "Tsk" section
